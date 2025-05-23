@@ -18,7 +18,7 @@ router.post('/send-otp', async(req, res)=> {
         });
         console.log('OTP SENT:', verification);
 
-        res.status(200).json({message: 'OTP-sent', sid: verification.sid});
+        res.status(200).json({success:true, message: 'OTP-sent', sid: verification.sid});
     }catch(error){
      console.error('Error Sending OTP:', error.message);
      res.status(500).json({error:'Failed to send OTP'});

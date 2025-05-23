@@ -11,8 +11,6 @@ function PaymentPage() {
   const { cartItems: contextCartItems } = useCart();
 
   const gameItem = state?.gameItem;
-
-  // Unified cartItems logic
   const cartItems = gameItem ? [gameItem] : contextCartItems;
 
   const [card, setCard] = useState({ number: "", expiry: "", cvv: "" });
@@ -67,24 +65,25 @@ function PaymentPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      {/* Logo + Tagline */}
-      <div className="flex flex-col items-center ml-4">
+    <div className="min-h-screen flex flex-col lg:flex-row items-center justify-center p-4 gap-6">
+      <div className="flex flex-col items-center lg:ml-4 lg:block hidden">
         <img src={logo} alt="logo" className="w-[300px] h-[300px] p-1" />
         <h2 className="text-lg font-bold text-white text-opacity-40 text-center leading-snug mt-2">
           GameShoppers — Level Up Your Game Library.
         </h2>
       </div>
 
-      {/* Divider */}
-      <div className="flex items-center mx-4">
+      <div className="flex flex-col items-center lg:hidden">
+        <img src={logo} alt="logo" className="w-40 h-40 p-1" />
+      </div>
+
+      <div className="hidden lg:flex items-center mx-4">
         <PiLineVerticalBold size={160} className="text-white opacity-50" />
       </div>
 
-      {/* Payment Form */}
-      <div className="flex-1 flex flex-col">
-        <form className="flex flex-col gap-4 items-center justify-center mb-10 mr-10 bg-gray-800 bg-opacity-30 backdrop-blur-md p-8 rounded-xl shadow-2xl w-[450px] h-[550px]">
-          <h2 className="text-3xl font-bold mb-6 text-white text-opacity-40">
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-6 w-full">
+        <form className="bg-gray-800 bg-opacity-30 backdrop-blur-md p-8 rounded-xl shadow-2xl w-[90%] max-w-[450px] h-[550px] flex flex-col gap-4 items-center">
+          <h2 className="text-3xl font-bold mb-2 text-white text-opacity-40">
             Secure Payment
           </h2>
 
@@ -138,42 +137,41 @@ function PaymentPage() {
           )}
 
           {verified && (
-            <p className="flex items-center gap-2 mt-4 text-green-400">
+            <p className="flex items-center gap-2 mt-2 text-green-400">
               <SiTicktick /> Transaction Successful
             </p>
           )}
         </form>
-      </div>
 
-      {/* Bill Summary */}
-      <div className="bg-gray-800 bg-opacity-30 backdrop-blur-md p-8 rounded-xl shadow-2xl w-[450px] h-[550px] ml-4 mb-10 mr-4 text-white overflow-y-auto">
-        <h2 className="flex items-center gap-2 text-2xl font-bold mb-4 text-opacity-40">
-          <RiBillFill /> Bill Summary
-        </h2>
+        <div className="bg-gray-800 bg-opacity-30 backdrop-blur-md p-8 rounded-xl shadow-2xl w-[90%] max-w-[450px] h-[550px] text-white overflow-y-auto">
+          <h2 className="flex items-center gap-2 text-2xl font-bold mb-4 text-opacity-40">
+            <RiBillFill /> Bill Summary
+          </h2>
 
-        <ul className="space-y-2 text-white text-opacity-60 max-h-40 overflow-y-auto mb-4">
-          {cartItems.map((item) => (
-            <li key={item.id} className="flex justify-between text-sm">
-              <span className="truncate">• {item.title}</span>
-              <span className="text-green-400 whitespace-nowrap">₹500</span>
-            </li>
-          ))}
-        </ul>
+          <ul className="space-y-2 text-white text-opacity-60 max-h-40 overflow-y-auto mb-4">
+            {cartItems.map((item) => (
+              <li key={item.id} className="flex justify-between text-sm">
+                <span className="truncate">• {item.title}</span>
+                <span className="text-green-400 whitespace-nowrap">₹500</span>
+              </li>
+            ))}
+          </ul>
 
-        <hr className="border-gray-600 mb-4" />
+          <hr className="border-gray-600 mb-4" />
 
-        <div className="space-y-2 text-sm">
-          <div className="flex justify-between">
-            <span>Base Price</span>
-            <span>₹{baseAmount.toFixed(2)}</span>
-          </div>
-          <div className="flex justify-between">
-            <span>GST (28%)</span>
-            <span>₹{gst.toFixed(2)}</span>
-          </div>
-          <div className="flex justify-between font-semibold text-white mt-2">
-            <span>Total</span>
-            <span>₹{totalAmount.toFixed(2)}</span>
+          <div className="space-y-2 text-sm">
+            <div className="flex justify-between">
+              <span>Base Price</span>
+              <span>₹{baseAmount.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>GST (28%)</span>
+              <span>₹{gst.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between font-semibold text-white mt-2">
+              <span>Total</span>
+              <span>₹{totalAmount.toFixed(2)}</span>
+            </div>
           </div>
         </div>
       </div>
